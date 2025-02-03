@@ -1,0 +1,140 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Checkpoint 1
+      id: checkpoint-1
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Checkpoint 1
+        setup-command: ''
+        command: python3 scrabble.py
+        input: CODE
+        expected-output: '7'
+        comparison-method: exact
+        timeout: 10
+    - name: Checkpoint 2
+      id: checkpoint-2
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Checkpoint 2
+        setup-command: ''
+        command: python3 scrabble.py
+        input: rEd
+        expected-output: '4'
+        comparison-method: exact
+        timeout: 10
+    - name: Checkpoint 3
+      id: checkpoint-3
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Checkpoint 3
+        setup-command: ''
+        command: python3 scrabble.py
+        input: HELLO
+        expected-output: '8'
+        comparison-method: exact
+        timeout: 10
+    - name: Checkpoint 4
+      id: checkpoint-4
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Checkpoint 4
+        setup-command: ''
+        command: python3 scrabble.py
+        input: Python
+        expected-output: '14'
+        comparison-method: exact
+        timeout: 10
+    - name: Checkpoint 5
+      id: checkpoint-5
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Checkpoint 5
+        setup-command: ''
+        command: python3 scrabble.py
+        input: QUICK
+        expected-output: '20'
+        comparison-method: exact
+        timeout: 10
+    - name: Checkpoint 6
+      id: checkpoint-6
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Checkpoint 6
+        setup-command: ''
+        command: python3 scrabble.py
+        input: GREAT
+        expected-output: '6'
+        comparison-method: exact
+        timeout: 10
+    - name: Checkpoint 7
+      id: checkpoint-7
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Checkpoint 7
+        setup-command: ''
+        command: python3 scrabble.py
+        input: Xylophone
+        expected-output: '24'
+        comparison-method: exact
+        timeout: 10
+    - name: Checkpoint 8
+      id: checkpoint-8
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Checkpoint 8
+        setup-command: ''
+        command: python3 scrabble.py
+        input: ZEBRA
+        expected-output: '16'
+        comparison-method: exact
+        timeout: 10
+    - name: Checkpoint 9
+      id: checkpoint-9
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Checkpoint 9
+        setup-command: ''
+        command: python3 scrabble.py
+        input: CS50
+        expected-output: '8'
+        comparison-method: exact
+        timeout: 10
+    - name: Checkpoint 10
+      id: checkpoint-10
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Checkpoint 10
+        setup-command: ''
+        command: python3 scrabble.py
+        input: aLpHaBeT
+        expected-output: '14'
+        comparison-method: exact
+        timeout: 10
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        CHECKPOINT-1_RESULTS: "${{steps.checkpoint-1.outputs.result}}"
+        CHECKPOINT-2_RESULTS: "${{steps.checkpoint-2.outputs.result}}"
+        CHECKPOINT-3_RESULTS: "${{steps.checkpoint-3.outputs.result}}"
+        CHECKPOINT-4_RESULTS: "${{steps.checkpoint-4.outputs.result}}"
+        CHECKPOINT-5_RESULTS: "${{steps.checkpoint-5.outputs.result}}"
+        CHECKPOINT-6_RESULTS: "${{steps.checkpoint-6.outputs.result}}"
+        CHECKPOINT-7_RESULTS: "${{steps.checkpoint-7.outputs.result}}"
+        CHECKPOINT-8_RESULTS: "${{steps.checkpoint-8.outputs.result}}"
+        CHECKPOINT-9_RESULTS: "${{steps.checkpoint-9.outputs.result}}"
+        CHECKPOINT-10_RESULTS: "${{steps.checkpoint-10.outputs.result}}"
+      with:
+        runners: checkpoint-1,checkpoint-2,checkpoint-3,checkpoint-4,checkpoint-5,checkpoint-6,checkpoint-7,checkpoint-8,checkpoint-9,checkpoint-10
